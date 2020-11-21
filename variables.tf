@@ -50,3 +50,8 @@ variable "zone_name" {
   default     = ""
   description = "The name of the desired Route53 Hosted Zone"
 }
+
+variable "acm_provider" {
+  type        = string
+  default     = "aws"
+}

@@ -1,4 +1,5 @@
 resource "aws_acm_certificate" "default" {
+  provider                  = var.acm_provider
   count                     = var.enabled ? 1 : 0
   domain_name               = var.domain_name
   validation_method         = var.validation_method
@@ -33,6 +34,7 @@ resource "aws_route53_record" "default" {
 }
 
 resource "aws_acm_certificate_validation" "default" {
+  provider                = var.acm_provider
   count                   = local.process_domain_validation_options && var.wait_for_certificate_issued ? 1 : 0
   certificate_arn         = join("", aws_acm_certificate.default.*.arn)
   validation_record_fqdns = aws_route53_record.default.*.fqdn
